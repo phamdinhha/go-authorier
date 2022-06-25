@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/phamdinhha/go-authorizer/config"
+	"github.com/phamdinhha/go-authorizer/pkg/db/postgres"
 	"github.com/phamdinhha/go-authorizer/pkg/logger"
 )
 
@@ -22,4 +23,11 @@ func main() {
 	logger := logger.NewApiLogger(cfg)
 	logger.InitLogger()
 
+	db, err := postgres.NewPostgresDB(cfg)
+	if err != nil {
+		logger.Fatalf("Failed to init postgres db: %s", err)
+	} else {
+		logger.Infof("Successfully connected to postgres, status: %v", db.Stats())
+	}
+	defer db.Close()
 }

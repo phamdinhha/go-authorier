@@ -11,6 +11,7 @@ type Config struct {
 	Server   ServerConfig
 	Logger   Logger
 	Postgres PostgresConfig
+	Casbin   CasbinConfig
 }
 
 type ServerConfig struct {
@@ -31,6 +32,11 @@ type PostgresConfig struct {
 	User     string
 	Password string
 	Database string
+	Driver   string
+}
+
+type CasbinConfig struct {
+	PostgresTable string
 }
 
 func LoadConfig(fileName string) (*viper.Viper, error) {
