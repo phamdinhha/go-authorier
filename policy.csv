@@ -1,4 +1,4 @@
 p, user, /report/book/:book_id/template/:template_id, GET
-p, admin, /report/book/:book_id/template/:template_id, (GET)|(POST)\(DELETE)
+p, admin, /report/book/:book_id/template/:template_id, (GET)|(POST)|(DELETE)
 g, admin@yopmail.com, admin
 g, user@gmail.com, user

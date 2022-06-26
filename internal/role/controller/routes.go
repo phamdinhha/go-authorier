@@ -5,7 +5,7 @@ import (
 	"github.com/phamdinhha/go-authorizer/internal/role"
 )
 
-func MapRoleRoutes(roleGroup fiber.Group, ctl role.RoleController) {
+func MapRoleRoutes(roleGroup fiber.Router, ctl role.RoleController) {
 	roleGroup.Post("/", ctl.AddUserToRole())
 	roleGroup.Delete("/", ctl.RemoveUserFromRole())
 }

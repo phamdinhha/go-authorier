@@ -5,6 +5,7 @@ go 1.18
 require (
 	github.com/Blank-Xu/sqlx-adapter v0.0.0-20210716082129-8f0d204a2a7d
 	github.com/casbin/casbin/v2 v2.33.0
+	github.com/gofiber/fiber/v2 v2.34.1
 	github.com/jackc/pgx v3.6.2+incompatible
 	github.com/jmoiron/sqlx v1.3.5
 	github.com/spf13/viper v1.12.0
@@ -16,7 +17,6 @@ require (
 	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/cockroachdb/apd v1.1.0 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
-	github.com/gofiber/fiber/v2 v2.34.1 // indirect
 	github.com/gofrs/uuid v4.2.0+incompatible // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/jackc/fake v0.0.0-20150926172116-812a484cc733 // indirect

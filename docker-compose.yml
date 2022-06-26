@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:13
+    environment:
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./docker/postgresql:/var/lib/postgresql/:rw
+      - ./scripts/postgres_init.sql:/docker-entrypoint-initdb.d/postgres_init.sql
+      - ./scripts/postgres_always.sh:/postgres_always.sh:ro
+      - ./scripts/postgres_run.sh:/usr/local/bin/postgres_run.sh:ro
+    restart: on-failure
+    healthcheck:
+      test: [ "CMD-SHELL", "psql -U admin -d authorization_db -c 'SELECT 1;'"]
+      interval: 60s
+      timeout: 5s
+      retries: 3
+    command: postgres_run.sh
+
+  go-authorizer:
+    container_name: go-authorizer
+    build:
+      context: .
+      dockerfile: build/Dockerfile
+    ports:
+      - "3000:3000"
+    restart: on-failure
+    volumes:
+      - ./config/config.yml:/config/config.yml
+      - ./model.conf:/model.conf
+      - ./policy.csv:/policy.csv
+    depends_on:
+      - postgres

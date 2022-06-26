@@ -1,24 +1,28 @@
 package main
 
 import (
+	"flag"
 	"log"
-	"os"
 
 	"github.com/phamdinhha/go-authorizer/config"
+	"github.com/phamdinhha/go-authorizer/internal/server"
 	"github.com/phamdinhha/go-authorizer/pkg/db/postgres"
 	"github.com/phamdinhha/go-authorizer/pkg/logger"
 )
 
+var (
+	configPath = flag.String("config", "config/config", "Config file")
+)
+
 func main() {
 	log.Println("Starting go-authorizer service")
-	configPath := os.Getenv("config")
-	cfgFile, err := config.LoadConfig(configPath)
+	cfgFile, err := config.LoadConfig(*configPath)
 	if err != nil {
-		log.Fatal("LoadConfig error: %v", err)
+		log.Fatalf("LoadConfig error: %v", err)
 	}
 	cfg, err := config.ParseConfig(cfgFile)
 	if err != nil {
-		log.Fatal("ParseConfig: %v", err)
+		log.Fatalf("ParseConfig: %v", err)
 	}
 	logger := logger.NewApiLogger(cfg)
 	logger.InitLogger()
@@ -30,4 +34,8 @@ func main() {
 		logger.Infof("Successfully connected to postgres, status: %v", db.Stats())
 	}
 	defer db.Close()
+	s := server.NewServer(cfg, logger, db)
+	if err = s.Run(); err != nil {
+		log.Fatal(err)
+	}
 }

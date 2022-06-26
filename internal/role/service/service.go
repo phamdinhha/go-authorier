@@ -16,7 +16,7 @@ type userRoleService struct {
 	enforcer *casbin.Enforcer
 }
 
-func NewUserRoleService(
+func NewRoleService(
 	cfg *config.Config,
 	logger logger.Logger,
 	enforcer *casbin.Enforcer,

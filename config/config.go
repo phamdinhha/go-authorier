@@ -8,41 +8,44 @@ import (
 )
 
 type Config struct {
-	Server   ServerConfig
-	Logger   Logger
-	Postgres PostgresConfig
-	Casbin   CasbinConfig
+	Server   ServerConfig   `mapstructure:"SERVER"`
+	Logger   Logger         `mapstructure:"LOGGER"`
+	Postgres PostgresConfig `mapstructure:"POSTGRES"`
+	Casbin   CasbinConfig   `mapstructure:"CASBIN"`
 }
 
 type ServerConfig struct {
-	Host        string
-	Port        string
-	Environment string
+	Host        string `mapstructure:"HOST"`
+	Port        string `mapstructure:"PORT"`
+	Environment string `mapstructure:"ENVIRONMENT"`
 }
 
 type Logger struct {
-	Development bool
-	Encoding    string
-	Level       string
+	Development bool   `mapstructure:"DEVELOPMENT"`
+	Encoding    string `mapstructure:"ENCODING"`
+	Level       string `mapstructure:"LEVEL"`
 }
 
 type PostgresConfig struct {
-	Host     string
-	Port     string
-	User     string
-	Password string
-	Database string
-	Driver   string
+	Host     string `mapstructure:"HOST"`
+	Port     string `mapstructure:"PORT"`
+	User     string `mapstructure:"USER"`
+	Password string `mapstructure:"PASSWORD"`
+	Database string `mapstructure:"DATABASE"`
+	Driver   string `mapstructure:"DRIVER"`
 }
 
 type CasbinConfig struct {
-	PostgresTable string
+	DbMode        bool   `mapstructure:"MODE"`
+	PostgresTable string `mapstructure:"POSTGRES_TABLE"`
+	ModelConfig   string `mapstructure:"MODEL_CONFIG"`
+	Policy        string `mapstructure:"POLICY"`
 }
 
-func LoadConfig(fileName string) (*viper.Viper, error) {
+func LoadConfig(filename string) (*viper.Viper, error) {
 	v := viper.New()
 
-	v.SetConfigName(fileName)
+	v.SetConfigName(filename)
 	v.AddConfigPath(".")
 	v.AutomaticEnv()
 	if err := v.ReadInConfig(); err != nil {
@@ -51,6 +54,7 @@ func LoadConfig(fileName string) (*viper.Viper, error) {
 		}
 		return nil, err
 	}
+
 	return v, nil
 }
 

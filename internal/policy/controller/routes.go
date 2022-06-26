@@ -5,7 +5,7 @@ import (
 	"github.com/phamdinhha/go-authorizer/internal/policy"
 )
 
-func MapPolicyRoutes(policyGroup fiber.Group, ctl policy.PolicyController) {
+func MapPolicyRoutes(policyGroup fiber.Router, ctl policy.PolicyController) {
 	policyGroup.Get("/all", ctl.GetAllPolicies())
 	policyGroup.Post("/", ctl.CreatePolicy())
 	policyGroup.Put("/", ctl.UpdatePolicy())

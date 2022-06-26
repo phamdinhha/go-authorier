@@ -1,0 +1,23 @@
+SERVER:
+  HOST: 0.0.0.0
+  PORT: 3000
+  ENVIRONMENT: dev
+
+LOGGER:
+  DEVELOPMENT: true
+  ENCODING: console
+  LEVEL: DEBUG
+
+POSTGRES:
+  HOST: postgres
+  PORT: 5432
+  USER: admin
+  PASSWORD: admin
+  DATABASE: authorization_db
+  DRIVER: pgx
+
+CASBIN:
+  MODE: false
+  POSTGRES_TABLE: authorization
+  MODEL_CONFIG: ./model.conf
+  POLICY: ./policy.csv
