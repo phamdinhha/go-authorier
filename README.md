@@ -1,2 +1,2 @@
 # go-authorizer
-A go authorizer based on casbin
+A Golang authorization service based on casbin
