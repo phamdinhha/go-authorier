@@ -15,5 +15,4 @@
 # vendor/
 
 ./docker/*
-scripts/*
 go-authorizer
